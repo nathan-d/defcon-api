@@ -4,6 +4,7 @@ import random
 import defcon.config as config
 import defcon.gpio_interface as gpio
 
+
 class Defcon(object):
     """Defcon class is the parent class for all Defcon functions.
     Including the GPIO interface bridge. """

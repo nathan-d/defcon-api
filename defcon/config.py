@@ -2,6 +2,7 @@
 import time
 import yaml
 
+
 class Config(object):
     """Handles the config file loading and exposes some sub-elements through functions."""
 
