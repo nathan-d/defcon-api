@@ -1,7 +1,8 @@
-import yaml, time
+import time
 import config
-import threading, random
+import random
 import gpio_interface as gpio
+
 
 class Defcon(object):
 
@@ -24,7 +25,7 @@ class Defcon(object):
             print 'Ending strobe...'
             self.gpio.unset_pin(strobe)
             print 'Ended.'
-    
+
     def set_status(self, new_status):
         # self.strobe('start')
         # Play sound - For 1 second
@@ -32,13 +33,13 @@ class Defcon(object):
         resp = self.gpio.set_pin(current_status, new_status)
         # self.strobe('stop')
         return resp
-    
+
     def save_status(self, status):
         self.set_status(status)
         current_conf = self.config.get_config()
         current_conf['defcon_state'] = status
         response = self.config.save_config(current_conf)
-        if response != True:
+        if not response:
             response = 'Error!'
         return response
 
@@ -47,18 +48,10 @@ class Defcon(object):
         light_map = self.config.get_pin_map()
         print 'maps in place'
         while True:
-            num_on = random.randint(1,3)
-            activate  = random.sample(light_map, num_on)
+            num_on = random.randint(1, 3)
+            activate = random.sample(light_map, num_on)
             self.gpio.unset_all_pins()
             for e in activate:
                 print 'Activating light %s' % e
                 self.gpio.blind_set(e)
             time.sleep(1)
-
-
-
-
-    
-
-    
-    
