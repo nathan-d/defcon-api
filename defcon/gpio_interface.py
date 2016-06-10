@@ -1,10 +1,12 @@
+import time
 import RPi.GPIO as GPIO
+
 
 class Pins(object):
 
     def __init__(self, pin_map):
         print pin_map
-        self.map = pin_map 
+        self.map = pin_map
         GPIO.setmode(GPIO.BCM)
         self._config_gpio(self.map)
 
