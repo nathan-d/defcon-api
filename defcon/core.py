@@ -31,8 +31,8 @@ class Defcon(object):
 
     def set_status(self, new_status):
         """Function to set the Defcon status."""
-        # self.strobe('start')
-        # Play sound - For 1 second
+        # self.strobe('start') #TODO: Uncoment when strobe connected to unit
+        # Play sound - For 1 second #TODO: Tracked in issue #2
         current_status = self.get_status()
         resp = self.gpio.set_pin(current_status, new_status)
         # self.strobe('stop')
@@ -45,7 +45,7 @@ class Defcon(object):
         current_conf['defcon_state'] = status
         response = self.config.save_config(current_conf)
         if not response:
-            response = 'Error!'
+            return 'Error!'
         return response
 
     def party(self):
