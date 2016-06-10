@@ -1,16 +1,33 @@
-import yaml
+import yaml, time
 
-class Defcon(object):
+class Config(object):
 
-  def __init__(self):
-    config = _load_config()
-    state = config['defcon_state']
+    def __init__(self):
+        self.config = self.load_config()
+        self.config_timestamp = time.time()
 
-  def _load_config():
-      conf = dict()
-      try: 
-          with open('config.yaml', 'r+') as stream:
-              conf = yaml.load(stream)
-          except:
-              print 'Unable to open config file'
-      return conf
+    def get_config(self):
+        return self.config
+
+    def get_pin_map(self):
+      return self.config['pin_map']
+
+    def load_config(self):
+        conf = dict()
+        try: 
+            with open('config.yml', 'r+') as stream:
+                conf = yaml.load(stream)
+                print 'Config loaded.'
+        except Exception:
+            print 'Unable to open config file.'
+        return conf
+
+    def save_config(self, data):
+        try:
+            with open('config.yml', 'w') as outfile:
+                outfile.write( yaml.dump(data, default_flow_style=False) )
+                print 'Config saved.'
+            self.config = data
+            return True
+        except:
+            print 'Unable to save config file.'
