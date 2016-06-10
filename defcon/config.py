@@ -11,8 +11,8 @@ class Config(object):
     def get_config(self):
         return self.config
 
-    def get_pin_map(self):
-        return self.config['pin_map']
+    def get_gpio_conf(self):
+        return self.config['gpio_interface']
 
     def load_config(self):
         conf = dict()
