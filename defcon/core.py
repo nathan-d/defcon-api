@@ -1,6 +1,7 @@
 """This module acts as the central file for all DefCon functions."""
 import time
 import random
+import pygame
 import defcon.config as config
 import defcon.gpio_interface as gpio
 
@@ -12,14 +13,21 @@ class Defcon(object):
     def __init__(self):
         self.config = config.Config()
         self.gpio = gpio.Pins(self.config.get_gpio_conf())
+        self.player = self._config_mixer(self.config.get_config()['sound_file'])
         self.party_mode = False
+
+    def _config_mixer(self, sound_file):
+        """Configures pygame.mixer instance."""
+        pygame.mixer.init()
+        player = pygame.mixer.load(sound_file)
+        return player
 
     def get_status(self):
         """Returns the current status of the Defcon unit."""
         return self.config.get_config()['defcon_state']
 
     def strobe(self, action):
-        """Strobe functionality for event change."""
+        """Strobe functionality for change event."""
         strobe = self.config.get_config()['strobe_pin']
         if action == 'start':
             print 'Starting strobe..'
@@ -33,7 +41,7 @@ class Defcon(object):
     def set_status(self, new_status):
         """Function to set the Defcon status."""
         # self.strobe('start') #TODO: Uncoment when strobe connected to unit
-        # Play sound - For 1 second #TODO: Tracked in issue #2
+        self.player.play()
         current_status = self.get_status()
         resp = self.gpio.set_pin(current_status, new_status)
         # self.strobe('stop')
