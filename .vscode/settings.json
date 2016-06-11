@@ -1,0 +1,14 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "python.pythonPath": "~/.pyenv/versions/2.7.11/bin/python",
+    "python.autoComplete.extraPaths": [
+        "~/.pyenv/versions/2.7.11/lib/python2.7",
+        "~/.pyenv/versions/2.7.11/lib/python2.7/site-packages"
+    ],
+    "python.linting.pep8Enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.lintOnTextChange": true,
+    "python.linting.lintOnSave": false,
+    "python.linting.maxNumberOfProblems": 50
+}
