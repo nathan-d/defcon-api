@@ -1,40 +1,49 @@
+"""Module to abstract the GPIO calls from the RPi.GPIO lib."""
 import time
 import RPi.GPIO as GPIO
 
 
 class Pins(object):
+    """Pins class acts as an abstraction layer for GPIO interaction."""
 
-    def __init__(self, pin_map):
-        print pin_map
-        self.map = pin_map
-        GPIO.setmode(GPIO.BCM)
-        self._config_gpio(self.map)
+    def __init__(self, conf):
+        self.conf = conf
+        self.pin_map = self.conf['pin_map']
+        GPIO.setmode(self.conf['pin_layout'])
+        self._config_gpio(self.pin_map)
 
     def set_pin(self, current_state, new_state):
-        if self.map[new_state]:
+        """Unsets the currently active pin before setting a new one."""
+        if self.conf[new_state]:
             self.unset_pin(current_state)
-            return GPIO.output(self.map[new_state], False)
+            return GPIO.output(self.pin_map[new_state], False)
 
-    def unset_pin(self, id):
-        if self.map[id]:
-            GPIO.output(self.map[id], True)
+    def unset_pin(self, pin):
+        """Unsets the specified pin."""
+        if self.pin_map[pin]:
+            GPIO.output(self.pin_map[pin], True)
 
     def unset_all_pins(self):
-        for id in self.map:
-            print 'Unsetting pin %s' % id
-            self.unset_pin(id)
+        """Unsets all pins - Used for party mode."""
+        for pin in self.pin_map:
+            print 'Unsetting pin %s' % pin
+            self.unset_pin(pin)
 
     def blind_set(self, pin):
-        GPIO.output(self.map[pin], False)
+        """Sets a pin without unsetting any other pin."""
+        GPIO.output(self.pin_map[pin], False)
 
     def pin_test(self):
-        for pin in self.map:
+        """Test method to check pin map."""
+        for pin in self.pin_map:
             print 'Setting light pin %s' % (pin)
-            self.blind_set(self.map[pin])
-            time.sleep(0.5)
-            self.unset_pin(self.map[pin])
+            self.blind_set(self.pin_map[pin])
+            time.sleep(self.conf['party_mode']['change_delay'])
+            self.unset_pin(self.pin_map[pin])
 
-    def _config_gpio(self, pins):
-        for id in pins:
-            GPIO.setup(pins[id], GPIO.OUT)
-            print "Pin %s configured." % id
+    @staticmethod
+    def _config_gpio(pins):
+        """Private function to setup the GPIO interface initially."""
+        for pin in pins:
+            GPIO.setup(pins[pin], GPIO.OUT)
+            print "Pin %s configured." % pin
