@@ -13,7 +13,7 @@ class Defcon(object):
     def __init__(self):
         self.config = config.Config()
         self.gpio = gpio.Pins(self.config.get_gpio_conf())
-        self.player = self._config_mixer(self.config.get_config()['sound_file'])
+        self.player = self._config_mixer(self.config.get_config()['change_sound'])
         self.party_mode = False
 
     def _config_mixer(self, sound_file):
