@@ -2,9 +2,9 @@ defcon_state: 3
 party_mode:
   min_lights: 1
   max_lights: 3
-  change_delay: 0.5 #Sseconds
+  change_delay: 0.5 #Seconds
 gpio_interface:
-  sleep_interval: 0.5 #The wait duration between light changes
+  sleep_interval: 0.5 #Wait duration between light changes
   pin_layout: BCM #Defines the pin mapping to apply
   pin_map:
     1: 13

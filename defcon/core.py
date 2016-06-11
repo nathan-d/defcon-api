@@ -52,10 +52,12 @@ class Defcon(object):
     def party(self):
         """Temporary function for the Party mode functionality."""
         print 'Started'
+        party_conf = self.config.get_config()
+        random_min = party_conf['party_mode']['min_lights']
+        random_max = party_conf['party_mode']['max_lights']
         light_map = self.config.get_gpio_conf()['pin_map']
-        print 'maps in place'
         while True:
-            num_on = random.randint(1, 3)
+            num_on = random.randint(random_min, random_max)
             activate = random.sample(light_map, num_on)
             self.gpio.unset_all_pins()
             for element in activate:
