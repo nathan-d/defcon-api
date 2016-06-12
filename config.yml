@@ -1,5 +1,5 @@
 defcon_state: 3
-change_sound: './attributes/klaxon.wav'
+change_sound: './assets/buzzer.wav'
 party_mode:
   min_lights: 1
   max_lights: 3
