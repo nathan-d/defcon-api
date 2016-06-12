@@ -23,12 +23,20 @@ The *defcon_state* field is only used to track the last known state of the defco
 
 ### Config example ###
 ```yaml
-defcon_state: 3
-pin_map:
-  1: 13
-  2: 11
-  3: 9
-  4: 22
-  5: 29
-strobe_pin: 0
+defcon_state: 5
+change_sound: './assets/buzzer.wav'
+party_mode:
+  min_lights: 1
+  max_lights: 3
+  change_delay: 0.5   #Seconds
+gpio_interface:
+  sleep_interval: 0.5 #Wait duration between light changes
+  pin_layout: BCM     #Defines the pin mapping to apply
+  pin_map:
+    1: 13
+    2: 11
+    3: 9
+    4: 22
+    5: 29
+  strobe_pin: 0
 ```
