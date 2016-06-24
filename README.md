@@ -7,8 +7,8 @@ A simple Flask-based API to expose the Rackspace DefCon lights.
 The API currently supports the following calls:
 * /v1/status - Returns the currently set status on the unit.
 * /v1/status/<int> - Sets the DefCon status to a value between 1 and 5.
-* /v1/up - Increments the DefCon status from the current value.
-* /v1/down - Decrements the DefCon status from the current value.  
+* /v1/status/up - Increments the DefCon status from the current value.
+* /v1/status/down - Decrements the DefCon status from the current value.  
 * /v1/party - Engage / disengage party mode.
 
 ## Installation
