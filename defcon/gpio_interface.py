@@ -9,7 +9,7 @@ class Pins(object):
     def __init__(self, conf):
         self.conf = conf
         self.pin_map = self.conf['pin_map']
-        GPIO.setmode(self.conf['pin_layout'])
+        GPIO.setmode(GPIO.BCM)
         self._config_gpio(self.pin_map)
 
     def set_pin(self, current_state, new_state):
