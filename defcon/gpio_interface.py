@@ -14,7 +14,7 @@ class Pins(object):
 
     def set_pin(self, current_state, new_state):
         """Unsets the currently active pin before setting a new one."""
-        if self.conf[new_state]:
+        if self.conf.pin_map[new_state]:
             self.unset_pin(current_state)
             return GPIO.output(self.pin_map[new_state], False)
 
