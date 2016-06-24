@@ -9,7 +9,7 @@ def get_status():
 def increment_status():
     status = defcon.get_status()
     if status > 1:
-        status += 1
+        status -= 1
         return set_status(status)
     else:
         print 'Status already at highest level.'
@@ -18,7 +18,7 @@ def increment_status():
 def decrement_status():
     status = defcon.get_status()
     if status <= 5:
-        status -= 1
+        status += 1
         return set_status(status)
     else:
         print 'Status already at lowest level.'
